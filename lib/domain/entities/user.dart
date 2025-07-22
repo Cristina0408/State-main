@@ -13,5 +13,3 @@ abstract class User with _$User {
     required List<String> professionsId,
   }) = _User;
 }
-
-

@@ -3,6 +3,7 @@ import 'package:estado/domain/entities/user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../domain/entities/profesion.dart';
 
 part 'profile_state.dart';
 part 'profile_cubit.freezed.dart';
@@ -42,11 +43,28 @@ class ProfileCubit extends Cubit<ProfileState> {
         age: age ?? updateUser.age,
         description: description ?? updateUser.description,
       );
+
       emit(ProfileState.successUpdate());
       emit(ProfileState.loaded(user));
     } catch (e) {
       emit(ProfileState.error());
       emit(currentUser);
     }
+  }
+
+  void updateProfessions(List<Profession> newProfessions) {
+    final currentState = state;
+    if (currentState is! ProfileLoadedState) return;
+
+    emit(const ProfileState.loading());
+
+    final professionIds = newProfessions.map((p) => p.id).toList();
+
+    final updatedUser = currentState.user.copyWith(
+      professionsId: professionIds,
+    );
+
+    emit(ProfileState.successUpdate());
+    emit(ProfileState.loaded(updatedUser));
   }
 }

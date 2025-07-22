@@ -60,7 +60,7 @@ class SkeletonItem extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    
+
                     Padding(
                       padding: const EdgeInsets.only(left: 13),
                       child: shimmerBox(height: 16, width: 180),

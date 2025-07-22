@@ -1,3 +1,4 @@
+import 'package:estado/presentation/pages/professions/widget/new_profession.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -19,9 +20,8 @@ class ProfessionPage extends StatelessWidget {
       listener: (context, state) {
         if (state is ProfessionSuccessUpdateState) {
           showSnackBar(context, "Se actualizó correctamente");
-          context.pop(true); // <- ESTO es importante
+          context.pop(true);
         }
-
 
         if (state is ProfessionErrorState) {
           showSnackBar(context, "Ha ocurrido un error");
@@ -45,58 +45,7 @@ class ProfessionPage extends StatelessWidget {
               },
             ),
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Nueva Profesión',
-                    labelText: 'Profesión',
-                  ),
-                  controller: nameController,
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Años',
-                    labelText: '¿Cuántos años lleva en ese oficio?',
-                  ),
-                  controller: ageController,
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Habla de ti...',
-                    labelText: 'Descripción',
-                  ),
-                  controller: descriptionController,
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  child: const Text('Guardar Cambios'),
-                  onPressed: () {
-                    final age = int.tryParse(ageController.text);
-                    if (age == null) {
-                      showSnackBar(context, "Por favor ingresa un número válido para los años");
-                      return;
-                    }
-
-                    final cubit = context.read<ProfessionCubit>();
-                    cubit.updateProfession(
-                      name: nameController.text,
-                      age: age,
-                      description: descriptionController.text,
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
+          body: NewProfession(),
         );
       },
     );

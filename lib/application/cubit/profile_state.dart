@@ -9,6 +9,3 @@ class ProfileState with _$ProfileState {
   const factory ProfileState.empty() = ProfileEmptyState;
   const factory ProfileState.successUpdate() = ProfileSuccessUpdateState;
 }
-
-
-

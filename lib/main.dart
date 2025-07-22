@@ -13,8 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ProfileCubit>(create: (_) => ProfileCubit()..loadUser("3"),)
-        ],
+        BlocProvider<ProfileCubit>(
+          create: (_) => ProfileCubit()..loadUser("3"),
+        ),
+      ],
       child: Builder(
         builder: (context) {
           final router = createRouter(context);

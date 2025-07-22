@@ -15,7 +15,7 @@ final fakeUser = [
     age: 28,
     email: 'lucia@example.com',
     description: 'Frontend developer',
-    professionsId:['p4', 'p5', 'p6'],
+    professionsId: ['p4', 'p5', 'p6'],
   ),
   User(
     id: "3",

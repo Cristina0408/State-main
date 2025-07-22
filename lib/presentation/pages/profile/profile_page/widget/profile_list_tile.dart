@@ -4,9 +4,7 @@ class ProfileListTile extends StatelessWidget {
   final String label;
   final String value;
 
-  const ProfileListTile({super.key, 
-  required this.label, 
-  required this.value});
+  const ProfileListTile({super.key, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {

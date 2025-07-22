@@ -11,4 +11,3 @@ class ProfessionState with _$ProfessionState {
   const factory ProfessionState.error(String message) = ProfessionErrorState;
   const factory ProfessionState.successUpdate() = ProfessionSuccessUpdateState;
 }
-

@@ -16,7 +16,7 @@ GoRouter createRouter(BuildContext context) {
       GoRoute(
         path: '/profile',
         name: 'profile',
-        builder: (context, state) => ProfilePage("1", professionId: 'p1',),
+        builder: (context, state) => ProfilePage("1", professionId: 'p1'),
       ),
       GoRoute(
         path: '/profile/edit',
