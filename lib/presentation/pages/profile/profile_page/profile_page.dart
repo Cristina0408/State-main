@@ -8,8 +8,9 @@ import 'widget/profile_header.dart';
 import 'widget/profile_info.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage(this.userId, {super.key});
+  const ProfilePage(this.userId, {super.key, required this.professionId});
   final String userId;
+  final String professionId;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -38,7 +39,10 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             body: Column(
               children: [
-                ProfileInfo(onPressed: () => context.push('/profile/edit'), text: 'Información General',),
+                ProfileInfo(
+                  onPressed: () => context.push('/profile/edit'),
+                  text: 'Información General',
+                ),
               ],
             ),
           );

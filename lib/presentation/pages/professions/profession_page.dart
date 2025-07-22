@@ -18,9 +18,10 @@ class ProfessionPage extends StatelessWidget {
     return BlocConsumer<ProfessionCubit, ProfessionState>(
       listener: (context, state) {
         if (state is ProfessionSuccessUpdateState) {
-          context.pop();
           showSnackBar(context, "Se actualizó correctamente");
+          context.pop(true); // <- ESTO es importante
         }
+
 
         if (state is ProfessionErrorState) {
           showSnackBar(context, "Ha ocurrido un error");

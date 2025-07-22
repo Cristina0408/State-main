@@ -45,7 +45,13 @@ class ProfileInfo extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextButton( 
-                          onPressed: () =>context.push('/profession/${professions[0].id}'),
+                          onPressed: () async {
+                            final result = await context.push('/profession/${professions[0].id}');
+                            if (result == true) {
+                              context.read<ProfileCubit>().loadUser(user.id); // 🔁 Recarga el perfil
+                            }
+                          },
+
                           child: Text('Editar Profesiones',
                             style: TextStyle(
                               fontSize: 20,

@@ -18,41 +18,48 @@ class ProfessionCubit extends Cubit<ProfessionState> {
     });
   }
 
-  void updateProfession({
-    String? name,
-    int? age,
-    String? description,
-  }) {
-    final currentState = state;
+void updateProfession({
+  required String name,
+  required int age,
+  required String description,
+}) {
+  final currentState = state;
 
-    if (currentState is! ProfessionLoadedState) {
-      return;
-    }
+  if (currentState is! ProfessionLoadedState) return;
 
-    try {
-      emit(const ProfessionState.loading());
+  final professionList = currentState.profession;
 
-      final professionList = currentState.profession;
-
-      if (professionList.isEmpty) {
-        emit(const ProfessionState.error("No hay profesión para actualizar"));
-        return;
-      }
-
-      final updatedProfession = professionList.first.copyWith(
-        name: name ?? professionList.first.name,
-        age: age ?? professionList.first.age,
-        description: description ?? professionList.first.description,
-      );
-
-      final updatedList = [updatedProfession, ...professionList.skip(1)];
-
-      emit(const ProfessionState.successUpdate());
-      emit(ProfessionState.loaded(profession: updatedList));
-    } catch (e) {
-      emit(ProfessionState.error("Error actualizando profesión"));
-      emit(currentState);
-    }
+  if (professionList.isEmpty) {
+    emit(const ProfessionState.error("No hay profesión para actualizar"));
+    return;
   }
+
+  try {
+    emit(const ProfessionState.loading());
+
+    final currentProfession = professionList.first;
+
+    final updatedProfession = currentProfession.copyWith(
+      name: name,
+      age: age,
+      description: description,
+    );
+
+    // 🔁 Actualiza directamente la lista fake global
+    final index = fakeProfession.indexWhere((p) => p.id == currentProfession.id);
+    if (index != -1) {
+      fakeProfession[index] = updatedProfession;
+    }
+
+    emit(const ProfessionState.successUpdate());
+
+    // 🔄 Recarga el estado con la nueva profesión
+    emit(ProfessionState.loaded(profession: [updatedProfession]));
+  } catch (e) {
+    emit(const ProfessionState.error("Error actualizando profesión"));
+    emit(currentState); // Recuperar el estado anterior en caso de error
+  }
+}
+
 }
 
