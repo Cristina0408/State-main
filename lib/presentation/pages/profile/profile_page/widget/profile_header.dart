@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../../../application/cubit/profile_cubit.dart';
+import '../../../../../application/profile_cubit/profile_cubit.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
@@ -27,6 +28,13 @@ class ProfileHeader extends StatelessWidget {
                 onBackgroundImageError: (error, stackTrace) {},
                 child: const Icon(Icons.person, color: Colors.white),
               ),
+              const Spacer(), 
+              IconButton(
+                icon: const Icon(Icons.edit, size: 20),
+                onPressed: () {
+                  context.push('/theme');
+                },
+              ),
             ],
           );
         } else {
@@ -36,3 +44,5 @@ class ProfileHeader extends StatelessWidget {
     );
   }
 }
+
+

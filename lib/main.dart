@@ -1,7 +1,9 @@
-import 'package:estado/application/cubit/profile_cubit.dart';
+import 'package:estado/application/profile_cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'core/app_theme.dart';
+import 'core/theme/cubit/theme_cubit.dart';
 import 'presentation/routes/routes.dart';
 
 void main() => runApp(const MyApp());
@@ -16,13 +18,19 @@ class MyApp extends StatelessWidget {
         BlocProvider<ProfileCubit>(
           create: (_) => ProfileCubit()..loadUser("3"),
         ),
+           BlocProvider<ThemeCubit>(
+          create: (_) => ThemeCubit(),
+        ),
       ],
-      child: Builder(
-        builder: (context) {
+          child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (context, themeMode) {
           final router = createRouter(context);
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: 'Material App',
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeMode,
             routerConfig: router,
           );
         },

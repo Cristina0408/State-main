@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/fake_profession.dart';
-import '../../../../domain/entities/profesion.dart';
+import '../../features/utils/fake_profession.dart';
+import '../../domain/entities/profesion.dart';
 import 'profession_state.dart';
 
 class ProfessionCubit extends Cubit<ProfessionState> {

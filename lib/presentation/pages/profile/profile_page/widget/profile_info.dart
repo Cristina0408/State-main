@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../application/cubit/profile_cubit.dart';
+import '../../../../../application/profile_cubit/profile_cubit.dart';
 import '../../../../../domain/entities/profesion.dart';
 import '../../../../../user_helper.dart';
 import 'profile_list_tile.dart';

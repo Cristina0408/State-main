@@ -1,4 +1,4 @@
-import 'package:estado/application/cubit/profile_cubit.dart';
+import 'package:estado/application/profile_cubit/profile_cubit.dart';
 
 import 'package:estado/presentation/widgets/snack_bar.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../pages/professions/cubit/profession_cubit.dart';
+import '../../application/profession_cubit/profession_cubit.dart';
+import '../../features/theme_page/theme_page.dart';
 import '../pages/professions/profession_page.dart';
 import '../pages/profile/profile_edit_page/profile_edit_page.dart';
 import '../pages/profile/profile_page/profile_page.dart';
@@ -33,6 +34,11 @@ GoRouter createRouter(BuildContext context) {
             child: const ProfessionPage(),
           );
         },
+      ),
+      GoRoute(
+        path: '/theme',
+        name: 'theme',
+        builder: (context, state) => ThemePage(),
       ),
     ],
   );
