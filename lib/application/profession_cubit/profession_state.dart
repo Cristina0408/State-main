@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../../../domain/entities/profesion.dart';
+import '../../domain/entities/profesion.dart';
 
 part 'profession_state.freezed.dart';
 

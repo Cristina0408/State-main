@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../application/cubit/profile_cubit.dart';
+import '../../../../application/profile_cubit/profile_cubit.dart';
 import 'widget/profile_header.dart';
 import 'widget/profile_info.dart';
 
@@ -32,7 +32,6 @@ class _ProfilePageState extends State<ProfilePage> {
           return const SkeletonItem();
         } else if (state is ProfileLoadedState) {
           return Scaffold(
-            backgroundColor: Colors.white,
             appBar: AppBar(
               shadowColor: Colors.transparent,
               title: ProfileHeader(),
