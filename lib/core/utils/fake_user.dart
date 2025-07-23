@@ -3,9 +3,9 @@ import 'package:estado/domain/entities/user.dart';
 final fakeUser = [
   User(
     id: "1",
-    name: '...',
+    name: '',
     age: 0,
-    email: 'example@example.com',
+    email: '',
     description: '',
     professionsId: ['p1', 'p2', 'p3'],
   ),

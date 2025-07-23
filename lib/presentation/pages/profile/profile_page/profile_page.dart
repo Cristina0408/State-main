@@ -37,13 +37,15 @@ class _ProfilePageState extends State<ProfilePage> {
               shadowColor: Colors.transparent,
               title: ProfileHeader(),
             ),
-            body: Column(
-              children: [
-                ProfileInfo(
-                  onPressed: () => context.push('/profile/edit'),
-                  text: 'Información General',
-                ),
-              ],
+            body:SingleChildScrollView(
+              child: Column(
+                children: [
+                  ProfileInfo(
+                    onPressed: () => context.push('/profile/edit'),
+                    text: 'Información General',
+                  ),
+                ],
+              ),
             ),
           );
         } else {
