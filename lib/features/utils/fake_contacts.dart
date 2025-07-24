@@ -1,6 +1,6 @@
 import '../../domain/entities/contact.dart';
 
-final fakeContacs = [
+final fakeContacts = [
   Contact(
     name: "Juan Pérez", 
     email: "juan@gmail.com", 

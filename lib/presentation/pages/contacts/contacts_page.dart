@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../features/utils/fake_contacts.dart';
 
 class ContactsPage extends StatelessWidget {
@@ -13,10 +14,10 @@ class ContactsPage extends StatelessWidget {
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
-        itemCount: contacts.length,
+        itemCount: fakeContacts.length,
         separatorBuilder: (context, index) => const Divider(),
         itemBuilder: (context, index) {
-          final contact = contacts[index];
+          final contact = fakeContacts[index];
           return ListTile(
             leading: const CircleAvatar(child: Icon(Icons.person)),
             title: Text(contact.name),
@@ -32,6 +33,13 @@ class ContactsPage extends StatelessWidget {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.push('/profile');
+        },
+        child: const Icon(Icons.arrow_forward),
+      ),
     );
   }
 }
+
