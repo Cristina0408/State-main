@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../widgets/snack_bar.dart';
-import '../../../../application/profession_cubit/profession_cubit.dart';
-import '../../../../application/profession_cubit/profession_state.dart';
+import '../../../../widgets/snack_bar.dart';
+import '../../../../../application/profession_cubit/profession_cubit.dart';
+import '../../../../../application/profession_cubit/profession_state.dart';
 
 class NewProfession extends StatelessWidget {
   NewProfession({super.key});

@@ -1,11 +1,11 @@
-import 'package:estado/presentation/pages/professions/widget/new_profession.dart';
+import 'package:estado/presentation/pages/profile/professions/widget/new_profession.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../widgets/snack_bar.dart';
-import '../../../application/profession_cubit/profession_cubit.dart';
-import '../../../application/profession_cubit/profession_state.dart';
+import '../../../widgets/snack_bar.dart';
+import '../../../../application/profession_cubit/profession_cubit.dart';
+import '../../../../application/profession_cubit/profession_state.dart';
 
 class ProfessionPage extends StatelessWidget {
   const ProfessionPage({super.key});

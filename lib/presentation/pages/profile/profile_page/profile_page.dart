@@ -8,9 +8,13 @@ import 'widget/profile_header.dart';
 import 'widget/profile_info.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage(this.userId, {super.key, required this.professionId});
-  final String userId;
-  final String professionId;
+  const ProfilePage(
+    this.userId, 
+    {super.key, 
+    required this.professionId});
+    
+  final String? userId;
+  final String? professionId;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -21,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     final cubit = context.read<ProfileCubit>();
-    cubit.loadUser(widget.userId);
+    cubit.loadUser(widget.userId!);
   }
 
   @override

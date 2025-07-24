@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/app_theme.dart';
 import 'core/theme/cubit/theme_cubit.dart';
+
+import 'presentation/pages/chat/cubit/chat_cubit.dart';
 import 'presentation/routes/routes.dart';
 
 void main() => runApp(const MyApp());
@@ -20,6 +22,9 @@ class MyApp extends StatelessWidget {
         ),
            BlocProvider<ThemeCubit>(
           create: (_) => ThemeCubit(),
+        ),
+        BlocProvider(
+      create: (_) => ChatCubit()..loadMessages(),
         ),
       ],
           child: BlocBuilder<ThemeCubit, ThemeMode>(

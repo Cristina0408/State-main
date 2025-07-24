@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../features/utils/fake_contacts.dart';
+
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({super.key});
@@ -30,14 +32,11 @@ class ContactsPage extends StatelessWidget {
                 );
               },
             ),
+             onTap: () {
+              context.go('/chat/${contact.id}');
+            },
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.push('/profile');
-        },
-        child: const Icon(Icons.arrow_forward),
       ),
     );
   }

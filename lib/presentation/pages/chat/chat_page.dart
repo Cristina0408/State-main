@@ -3,71 +3,81 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../domain/entities/contact.dart';
+import '../../../features/utils/fake_contacts.dart';
+import 'cubit/chat_cubit.dart';
+import 'widget/chat_message_model.dart';
 import 'widget/chat_messaje.dart';
 
 class ChatPage extends StatefulWidget {
-  final String? email;
-  final String username;
-  final String? imagePath;
+  final String contactId;
 
-  const ChatPage({
-    super.key,
-    required this.username,
-    this.imagePath,
-    this.email,
-  });
+  const ChatPage({super.key,required this.contactId});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
+  late final Contact contact;
   final FocusNode _focusNode = FocusNode();
   final _textController = TextEditingController();
-
-  final List<ChatMessage> _messages = [];
 
   bool _isWriting = false;
 
   @override
+  void initState() {
+    super.initState();
+    contact = fakeContacts.firstWhere(
+      (c) => c.id == widget.contactId,
+      orElse: () => Contact(id: '0', name: 'Desconocido', email: '', phone: ''),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final chatCubit = context.watch<ChatCubit>();
+    final messages = chatCubit.state;
+
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: EdgeInsets.only(right: 16),
-              child: CircleAvatar(
+              padding: const EdgeInsets.only(right: 10),
+              child: const CircleAvatar(
                 radius: 16,
-                backgroundImage:
-                    widget.imagePath != null && widget.imagePath!.isNotEmpty
-                    ? FileImage(File(widget.imagePath!))
-                    : null,
-                backgroundColor: Colors.grey[400],
-                child: (widget.imagePath == null || widget.imagePath!.isEmpty)
-                    ? Text(
-                        widget.username.substring(0, 2).toUpperCase(),
-                        style: TextStyle(fontSize: 12, color: Colors.white),
-                      )
-                    : null,
+                backgroundColor: Colors.grey,
+                child: Icon(Icons.person, color: Colors.white, size: 20),
               ),
             ),
-            Text(widget.username),
+            Text(
+              contact.name,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
+              ),
+            ),
           ],
         ),
         elevation: 3,
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            context.pop();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
-        actions: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right: 10),
+        actions: [
+          IconButton(
+            alignment: AlignmentDirectional.centerEnd,
+            icon: const Icon(Icons.delete, color: Colors.grey),
+            onPressed: () => context.read<ChatCubit>().clearMessages(),
           ),
         ],
       ),
@@ -75,14 +85,24 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
         children: <Widget>[
           Flexible(
             child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (_, i) => _messages[i],
-              itemCount: _messages.length,
+              physics: const BouncingScrollPhysics(),
+              itemCount: messages.length,
               reverse: true,
+              itemBuilder: (_, i) {
+                final message = messages[i];
+                return ChatMessage(
+                  text: message.text,
+                  senderEmail: message.senderEmail,
+                  currentUserEmail: contact.email,
+                  animationController: AnimationController(
+                    vsync: this,
+                    duration: const Duration(milliseconds: 300),
+                  )..forward(),
+                );
+              },
             ),
           ),
-          Divider(height: 2),
-
+          const Divider(height: 2),
           Container(color: Colors.white, height: 50, child: _inputChat()),
         ],
       ),
@@ -92,7 +112,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   Widget _inputChat() {
     return SafeArea(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
           children: <Widget>[
             Flexible(
@@ -101,14 +121,10 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
                 onSubmitted: _handleSubmit,
                 onChanged: (String text) {
                   setState(() {
-                    if (text.trim().isNotEmpty) {
-                      _isWriting = true;
-                    } else {
-                      _isWriting = false;
-                    }
+                    _isWriting = text.trim().isNotEmpty;
                   });
                 },
-                decoration: InputDecoration.collapsed(
+                decoration: const InputDecoration.collapsed(
                   hintText: 'Enviar mj:',
                   hintStyle: TextStyle(
                     fontSize: 15,
@@ -119,28 +135,24 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
                 focusNode: _focusNode,
               ),
             ),
-
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 4.0),
+              margin: const EdgeInsets.symmetric(horizontal: 4.0),
               child: !kIsWeb && Platform.isIOS
                   ? CupertinoButton(
                       onPressed: _isWriting
                           ? () => _handleSubmit(_textController.text.trim())
                           : null,
-                      child: Text('Enviar'),
+                      child: const Text('Enviar'),
                     )
-                  : Container(
-                      margin: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: IconTheme(
-                        data: IconThemeData(color: Colors.blue),
-                        child: IconButton(
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          icon: Icon(Icons.send),
-                          onPressed: _isWriting
-                              ? () => _handleSubmit(_textController.text.trim())
-                              : null,
-                        ),
+                  : IconTheme(
+                      data: const IconThemeData(color: Colors.blue),
+                      child: IconButton(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        icon: const Icon(Icons.send),
+                        onPressed: _isWriting
+                            ? () => _handleSubmit(_textController.text.trim())
+                            : null,
                       ),
                     ),
             ),
@@ -151,36 +163,17 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   }
 
   void _handleSubmit(String text) {
-    if (text.isEmpty) return;
-    if (text.trim().isEmpty || widget.email == null) return;
+    if (text.trim().isEmpty) return;
 
     _textController.clear();
     _focusNode.requestFocus();
 
-    final newMessage = ChatMessage(
-      text: text,
-      senderEmail: widget.email!,
-      currentUserEmail: widget.email!,
-      animationController: AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 300),
-      ),
-    );
+    final newMessage = ChatMessageModel(text: text, senderEmail: contact.email);
+
+    context.read<ChatCubit>().addMessage(newMessage);
 
     setState(() {
-      _messages.insert(0, newMessage);
-      newMessage.animationController.forward();
-
       _isWriting = false;
     });
-  }
-
-  @override
-  void dispose() {
-    for (ChatMessage message in _messages) {
-      message.animationController.dispose();
-    }
-
-    super.dispose();
   }
 }
