@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'contacts.freezed.dart';
+part 'contact.freezed.dart';
 
 @freezed
 class Contact with _$Contact {
