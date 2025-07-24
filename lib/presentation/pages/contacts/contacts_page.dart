@@ -1,13 +1,8 @@
-
 import 'package:flutter/material.dart';
-
 import '../../../features/utils/fake_contacts.dart';
-
-
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,4 +35,3 @@ class ContactsPage extends StatelessWidget {
     );
   }
 }
-
