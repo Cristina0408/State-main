@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../../domain/entities/contact.dart';
 import '../../../features/utils/fake_contacts.dart';
 import 'cubit/chat_cubit.dart';
-import 'widget/chat_message_model.dart';
+
 import 'widget/chat_messaje.dart';
 
 class ChatPage extends StatefulWidget {
@@ -24,9 +24,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   late final Contact contact;
   final FocusNode _focusNode = FocusNode();
-  final _textController = TextEditingController();
-
-  bool _isWriting = false;
+  final TextEditingController _textController = TextEditingController(); 
 
   @override
   void initState() {
@@ -38,18 +36,25 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    _focusNode.dispose();
+    _textController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final chatCubit = context.watch<ChatCubit>();
-    final messages = chatCubit.state;
+    final messages = chatCubit.state.messages;
 
     return Scaffold(
       appBar: AppBar(
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: const CircleAvatar(
+            const Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: CircleAvatar(
                 radius: 16,
                 backgroundColor: Colors.grey,
                 child: Icon(Icons.person, color: Colors.white, size: 20),
@@ -68,14 +73,11 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
         elevation: 3,
         backgroundColor: Colors.white,
         leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
+          onPressed: () => context.pop(),
           icon: const Icon(Icons.arrow_back),
         ),
         actions: [
           IconButton(
-            alignment: AlignmentDirectional.centerEnd,
             icon: const Icon(Icons.delete, color: Colors.grey),
             onPressed: () => context.read<ChatCubit>().clearMessages(),
           ),
@@ -94,10 +96,6 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
                   text: message.text,
                   senderEmail: message.senderEmail,
                   currentUserEmail: contact.email,
-                  animationController: AnimationController(
-                    vsync: this,
-                    duration: const Duration(milliseconds: 300),
-                  )..forward(),
                 );
               },
             ),
@@ -110,6 +108,10 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   }
 
   Widget _inputChat() {
+    final chatCubit = context.watch<ChatCubit>();
+    final currentInput = chatCubit.state.currentInput;
+    final isWriting = currentInput.trim().isNotEmpty;
+
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -118,12 +120,8 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
             Flexible(
               child: TextField(
                 controller: _textController,
+                onChanged: (text) => chatCubit.updateInput(text),
                 onSubmitted: _handleSubmit,
-                onChanged: (String text) {
-                  setState(() {
-                    _isWriting = text.trim().isNotEmpty;
-                  });
-                },
                 decoration: const InputDecoration.collapsed(
                   hintText: 'Enviar mj:',
                   hintStyle: TextStyle(
@@ -139,19 +137,17 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
               margin: const EdgeInsets.symmetric(horizontal: 4.0),
               child: !kIsWeb && Platform.isIOS
                   ? CupertinoButton(
-                      onPressed: _isWriting
-                          ? () => _handleSubmit(_textController.text.trim())
+                      onPressed: isWriting
+                          ? () => _handleSubmit(chatCubit.state.currentInput)
                           : null,
                       child: const Text('Enviar'),
                     )
                   : IconTheme(
                       data: const IconThemeData(color: Colors.blue),
                       child: IconButton(
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
                         icon: const Icon(Icons.send),
-                        onPressed: _isWriting
-                            ? () => _handleSubmit(_textController.text.trim())
+                        onPressed: isWriting
+                            ? () => _handleSubmit(chatCubit.state.currentInput)
                             : null,
                       ),
                     ),
@@ -163,17 +159,14 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   }
 
   void _handleSubmit(String text) {
-    if (text.trim().isEmpty) return;
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) return;
 
-    _textController.clear();
+    FocusScope.of(context).unfocus();
+    context.read<ChatCubit>().addMessage(trimmed, contact.email);
+
+    _textController.clear(); 
+    context.read<ChatCubit>().updateInput('');
     _focusNode.requestFocus();
-
-    final newMessage = ChatMessageModel(text: text, senderEmail: contact.email);
-
-    context.read<ChatCubit>().addMessage(newMessage);
-
-    setState(() {
-      _isWriting = false;
-    });
   }
 }

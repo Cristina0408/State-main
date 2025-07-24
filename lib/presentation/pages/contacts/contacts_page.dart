@@ -33,7 +33,7 @@ class ContactsPage extends StatelessWidget {
               },
             ),
              onTap: () {
-              context.go('/chat/${contact.id}');
+              context.push('/chat/${contact.id}');
             },
           );
         },

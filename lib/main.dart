@@ -20,12 +20,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<ProfileCubit>(
           create: (_) => ProfileCubit()..loadUser("3"),
         ),
-           BlocProvider<ThemeCubit>(
+        BlocProvider<ThemeCubit>(
           create: (_) => ThemeCubit(),
         ),
-        BlocProvider(
-      create: (_) => ChatCubit()..loadMessages(),
-        ),
+        BlocProvider(create: (_) => ChatCubit()),
       ],
           child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
