@@ -25,6 +25,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     String? email,
     int? age,
     String? description,
+    String? profileImagePath,
   }) {
     final currentUser = state;
 
@@ -32,26 +33,26 @@ class ProfileCubit extends Cubit<ProfileState> {
       return;
     }
 
-    try {
-      emit(const ProfileState.loading());
+      try {
+    emit(const ProfileState.loading());
 
-      final updateUser = currentUser.user;
+    final userBefore = currentUser.user;
 
-      final user = updateUser.copyWith(
-        name: name ?? updateUser.name,
-        email: email ?? updateUser.email,
-        age: age ?? updateUser.age,
-        description: description ?? updateUser.description,
-      );
+    final updatedUser = userBefore.copyWith(
+      name: name ?? userBefore.name,
+      email: email ?? userBefore.email,
+      age: age ?? userBefore.age,
+      description: description ?? userBefore.description,
+      profileImagePath: profileImagePath ?? userBefore.profileImagePath,
+    );
 
-      emit(ProfileState.successUpdate());
-      emit(ProfileState.loaded(user));
-    } catch (e) {
-      emit(ProfileState.error());
-      emit(currentUser);
-    }
+    emit(const ProfileState.successUpdate());
+    emit(ProfileState.loaded(updatedUser));
+  } catch (e) {
+    emit(const ProfileState.error());
+    emit(currentUser);
   }
-
+}
   void updateProfessions(List<Profession> newProfessions) {
     final currentState = state;
     if (currentState is! ProfileLoadedState) return;
