@@ -63,16 +63,25 @@ class ProfileInfo extends StatelessWidget {
                         ),
                       ),
                       ...professions.map(
-                        (profession) => ListTile(
-                          dense: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                          ),
+                        (profession) => ExpansionTile(
+                          tilePadding: const EdgeInsets.symmetric(horizontal: 5),
                           leading: const Icon(Icons.work, size: 20),
                           title: Text(
                             profession.name,
                             style: const TextStyle(fontSize: 16),
                           ),
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Años: ${profession.age}'), 
+                                  Text('Descripción: ${profession.description}'),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
