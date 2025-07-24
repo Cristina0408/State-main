@@ -8,7 +8,6 @@ final fakeUser = [
     email: '',
     description: '',
     professionsId: ['p1', 'p2', 'p3'], 
-    profileImageUrl: '',
   ),
   User(
     id: "2",
@@ -17,7 +16,6 @@ final fakeUser = [
     email: 'lucia@example.com',
     description: 'Frontend developer',
     professionsId: ['p4', 'p5', 'p6'], 
-    profileImageUrl: '',
   ),
   User(
     id: "3",
@@ -26,6 +24,5 @@ final fakeUser = [
     email: 'lucia@example.com',
     description: 'Frontend developer',
     professionsId: ['p7', 'p8', 'p1'], 
-    profileImageUrl: '',
   ),
 ];
