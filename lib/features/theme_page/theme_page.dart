@@ -3,11 +3,39 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/theme/cubit/theme_cubit.dart';
 
-class ThemePage extends StatelessWidget {
+class ThemePage extends StatefulWidget {
   const ThemePage({super.key});
 
   @override
+  State<ThemePage> createState() => _ThemePageState();
+}
+
+class _ThemePageState extends State<ThemePage> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Simula una carga de 2 segundos
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     final isDark = context.watch<ThemeCubit>().state == ThemeMode.dark;
 
     return Scaffold(
