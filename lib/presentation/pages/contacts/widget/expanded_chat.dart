@@ -20,11 +20,13 @@ class ChatSection extends StatelessWidget {
             children: [
               Image.asset(
               'assets/images/logo.webp',
-                width: 180,
-                height: 180,
-                fit: BoxFit.contain,
+              width: 180,
+              height: 180,
+              fit: BoxFit.contain,
+                color: Colors.purple[700],
+                colorBlendMode: BlendMode.srcIn,
               ),
-              const SizedBox(height: 20),
+              
               const Text(
                 'Selecciona un chat',
                 style: TextStyle(

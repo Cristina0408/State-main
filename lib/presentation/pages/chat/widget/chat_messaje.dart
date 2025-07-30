@@ -28,7 +28,7 @@ class ChatMessage extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: isMe
-              ? const Color.fromARGB(255, 61, 155, 199)
+              ? Colors.purple
               : Colors.deepPurpleAccent[300],
           borderRadius: BorderRadius.circular(20),
         ),

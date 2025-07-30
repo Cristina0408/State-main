@@ -52,57 +52,60 @@ class _InputChatState extends State<InputChat> {
     return SafeArea(
       child: Align(
         alignment: Alignment.bottomCenter,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 520),
-          child: Container(
-            height: 42,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(color: Colors.black),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 2,
-                  offset: Offset(0, 1),
-                ),
-              ],
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: _textController,
-                    focusNode: _focusNode,
-                    onChanged: (text) => widget.chatCubit.updateInput(text),
-                    onSubmitted: _handleSubmit,
-                    style: const TextStyle(fontSize: 13),
-                    decoration: const InputDecoration(
-                      hintText: 'Enviar mj:',
-                      hintStyle: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                        fontStyle: FontStyle.italic,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 495),
+            child: Container(
+              height: 42,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(color: Colors.purple[700]!, width: 1),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 2,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: TextField(
+                      controller: _textController,
+                      focusNode: _focusNode,
+                      onChanged: (text) => widget.chatCubit.updateInput(text),
+                      onSubmitted: _handleSubmit,
+                      style: const TextStyle(fontSize: 13),
+                      decoration: const InputDecoration(
+                        hintText: 'Enviar mj:',
+                        hintStyle: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                          fontStyle: FontStyle.italic,
+                        ),
+                        border: InputBorder.none,
+                        isDense: true,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                       ),
-                      border: InputBorder.none,
-                      isDense: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                     ),
                   ),
-                ),
-                IconTheme(
-                  data: const IconThemeData(color: Colors.blue, size: 25),
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                    icon: const Icon(Icons.send),
-                    onPressed: isWriting ? () => _handleSubmit(currentInput) : null,
+                  IconTheme(
+                    data: const IconThemeData(color: Colors.purple, size: 25),
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                      icon: const Icon(Icons.send),
+                      onPressed: isWriting ? () => _handleSubmit(currentInput) : null,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
