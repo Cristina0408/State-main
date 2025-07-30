@@ -53,6 +53,7 @@ class NavigationBar extends StatelessWidget {
         children: [
             NavigationRailTheme(
             data: NavigationRailThemeData(
+              minWidth: 56,
               indicatorColor: Colors.transparent,
               selectedIconTheme: IconThemeData(color: Colors.purple[600]),
               unselectedIconTheme: IconThemeData(color: Colors.grey),

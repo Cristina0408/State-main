@@ -93,7 +93,7 @@ class ListOptionsProfile extends StatelessWidget {
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.notifications),
+              leading: const Icon(Icons.notifications_active_outlined),
               title: const Text('Notificaciones generales'),
               subtitle: Text(notificationsOn ? 'Notificaciones activadas' : 'Notificaciones desactivadas'),
               trailing: Switch(

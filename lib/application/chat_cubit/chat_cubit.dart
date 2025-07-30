@@ -34,9 +34,7 @@ class ChatCubit extends Cubit<ChatState> {
     await Future.delayed(const Duration(seconds: 2));
 
     final newMap = Map<String, String>.from(state.nicknames);
-    newMap[contactId] = newName.trim().isEmpty
-        ? 'Agrega un apodo'
-        : newName.trim();
+    newMap[contactId] = newName.trim().isEmpty ? 'Agrega un apodo' : newName.trim();
 
     final updatedLoading = {...state.loadingNicknames}..remove(contactId);
 
@@ -61,14 +59,15 @@ class ChatCubit extends Cubit<ChatState> {
     newMap[contactId] = !current;
     emit(state.copyWith(notificationsEnabled: newMap));
   }
+
   void toggleFavorite(String contactId) {
-  final newFavorites = Set<String>.from(state.favorites);
-  if (newFavorites.contains(contactId)) {
-    newFavorites.remove(contactId);
-  } else {
-    newFavorites.add(contactId);
-  }
-  emit(state.copyWith(favorites: newFavorites));
+    final newFavorites = Set<String>.from(state.favorites);
+    if (newFavorites.contains(contactId)) {
+      newFavorites.remove(contactId);
+    } else {
+      newFavorites.add(contactId);
+    }
+    emit(state.copyWith(favorites: newFavorites));
   }
 
   bool isFavorite(String contactId) {
@@ -76,6 +75,6 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void selectContact(String contactId) {
-  emit(state.copyWith(selectedContactId: contactId));
+    emit(state.copyWith(selectedContactId: contactId));
   }
 }

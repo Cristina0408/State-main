@@ -21,31 +21,31 @@ class ThreeButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonStyle = TextButton.styleFrom(
+      foregroundColor: Colors.black87,
+      backgroundColor: Colors.transparent,
+      side: const BorderSide(color: Colors.grey), 
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+    );
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         TextButton(
           onPressed: onFirstPressed,
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.black87,
-            backgroundColor: Colors.transparent,
-          ),
+          style: buttonStyle,
           child: Text(firstLabel),
         ),
         TextButton(
           onPressed: onSecondPressed,
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.black87,
-            backgroundColor: Colors.transparent,
-          ),
+          style: buttonStyle,
           child: Text(secondLabel),
         ),
         TextButton(
           onPressed: onThirdPressed,
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.black87,
-            backgroundColor: Colors.transparent,
-          ),
+          style: buttonStyle,
           child: Text(thirdLabel),
         ),
       ],
