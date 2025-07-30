@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class NavigationBar extends StatelessWidget {
+class ButtonNavigationBar extends StatelessWidget {
   final Widget child;
   final String currentLocation;
 
-  const NavigationBar({
+  const ButtonNavigationBar({
     super.key,
     required this.child,
     required this.currentLocation,

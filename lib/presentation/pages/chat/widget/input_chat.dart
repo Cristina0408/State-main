@@ -41,6 +41,7 @@ class _InputChatState extends State<InputChat> {
 
     _textController.clear();
     widget.chatCubit.updateInput('');
+    setState(() {});  // Para actualizar el icono
     _focusNode.requestFocus();
   }
 
@@ -78,7 +79,10 @@ class _InputChatState extends State<InputChat> {
                     child: TextField(
                       controller: _textController,
                       focusNode: _focusNode,
-                      onChanged: (text) => widget.chatCubit.updateInput(text),
+                      onChanged: (text) {
+                        widget.chatCubit.updateInput(text);
+                        setState(() {});  // Para refrescar el icono cuando se escribe
+                      },
                       onSubmitted: _handleSubmit,
                       style: const TextStyle(fontSize: 13),
                       decoration: const InputDecoration(
@@ -100,8 +104,11 @@ class _InputChatState extends State<InputChat> {
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
-                      icon: const Icon(Icons.send),
-                      onPressed: isWriting ? () => _handleSubmit(currentInput) : null,
+                      icon: Icon(isWriting ? Icons.send : Icons.mic),
+                      onPressed: isWriting
+                          ? () => _handleSubmit(currentInput)
+                          : () {
+                            },
                     ),
                   ),
                 ],
