@@ -14,7 +14,11 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$User {
 
+<<<<<<< HEAD
  String get id; String get name; int get age; String get email; String get description; List<String> get professionsId;
+=======
+ String get id; String get name; int get age; String get email; String get description; String? get profileImagePath; List<String> get professionsId;
+>>>>>>> master
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +29,28 @@ $UserCopyWith<User> get copyWith => _$UserCopyWithImpl<User>(this as User, _$ide
 
 @override
 bool operator ==(Object other) {
+<<<<<<< HEAD
   return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.age, age) || other.age == age)&&(identical(other.email, email) || other.email == email)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.professionsId, professionsId));
+=======
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.age, age) || other.age == age)&&(identical(other.email, email) || other.email == email)&&(identical(other.description, description) || other.description == description)&&(identical(other.profileImagePath, profileImagePath) || other.profileImagePath == profileImagePath)&&const DeepCollectionEquality().equals(other.professionsId, professionsId));
+>>>>>>> master
 }
 
 
 @override
+<<<<<<< HEAD
 int get hashCode => Object.hash(runtimeType,id,name,age,email,description,const DeepCollectionEquality().hash(professionsId));
 
 @override
 String toString() {
   return 'User(id: $id, name: $name, age: $age, email: $email, description: $description, professionsId: $professionsId)';
+=======
+int get hashCode => Object.hash(runtimeType,id,name,age,email,description,profileImagePath,const DeepCollectionEquality().hash(professionsId));
+
+@override
+String toString() {
+  return 'User(id: $id, name: $name, age: $age, email: $email, description: $description, profileImagePath: $profileImagePath, professionsId: $professionsId)';
+>>>>>>> master
 }
 
 
@@ -45,7 +61,11 @@ abstract mixin class $UserCopyWith<$Res>  {
   factory $UserCopyWith(User value, $Res Function(User) _then) = _$UserCopyWithImpl;
 @useResult
 $Res call({
+<<<<<<< HEAD
  String id, String name, int age, String email, String description, List<String> professionsId
+=======
+ String id, String name, int age, String email, String description, String? profileImagePath, List<String> professionsId
+>>>>>>> master
 });
 
 
@@ -62,14 +82,23 @@ class _$UserCopyWithImpl<$Res>
 
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
+<<<<<<< HEAD
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? age = null,Object? email = null,Object? description = null,Object? professionsId = null,}) {
+=======
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? age = null,Object? email = null,Object? description = null,Object? profileImagePath = freezed,Object? professionsId = null,}) {
+>>>>>>> master
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,age: null == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
 as int,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+<<<<<<< HEAD
 as String,professionsId: null == professionsId ? _self.professionsId : professionsId // ignore: cast_nullable_to_non_nullable
+=======
+as String,profileImagePath: freezed == profileImagePath ? _self.profileImagePath : profileImagePath // ignore: cast_nullable_to_non_nullable
+as String?,professionsId: null == professionsId ? _self.professionsId : professionsId // ignore: cast_nullable_to_non_nullable
+>>>>>>> master
 as List<String>,
   ));
 }
@@ -155,10 +184,17 @@ return $default(_that);case _:
 /// }
 /// ```
 
+<<<<<<< HEAD
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  int age,  String email,  String description,  List<String> professionsId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _User() when $default != null:
 return $default(_that.id,_that.name,_that.age,_that.email,_that.description,_that.professionsId);case _:
+=======
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  int age,  String email,  String description,  String? profileImagePath,  List<String> professionsId)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _User() when $default != null:
+return $default(_that.id,_that.name,_that.age,_that.email,_that.description,_that.profileImagePath,_that.professionsId);case _:
+>>>>>>> master
   return orElse();
 
 }
@@ -176,10 +212,17 @@ return $default(_that.id,_that.name,_that.age,_that.email,_that.description,_tha
 /// }
 /// ```
 
+<<<<<<< HEAD
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int age,  String email,  String description,  List<String> professionsId)  $default,) {final _that = this;
 switch (_that) {
 case _User():
 return $default(_that.id,_that.name,_that.age,_that.email,_that.description,_that.professionsId);case _:
+=======
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int age,  String email,  String description,  String? profileImagePath,  List<String> professionsId)  $default,) {final _that = this;
+switch (_that) {
+case _User():
+return $default(_that.id,_that.name,_that.age,_that.email,_that.description,_that.profileImagePath,_that.professionsId);case _:
+>>>>>>> master
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +239,17 @@ return $default(_that.id,_that.name,_that.age,_that.email,_that.description,_tha
 /// }
 /// ```
 
+<<<<<<< HEAD
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  int age,  String email,  String description,  List<String> professionsId)?  $default,) {final _that = this;
 switch (_that) {
 case _User() when $default != null:
 return $default(_that.id,_that.name,_that.age,_that.email,_that.description,_that.professionsId);case _:
+=======
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  int age,  String email,  String description,  String? profileImagePath,  List<String> professionsId)?  $default,) {final _that = this;
+switch (_that) {
+case _User() when $default != null:
+return $default(_that.id,_that.name,_that.age,_that.email,_that.description,_that.profileImagePath,_that.professionsId);case _:
+>>>>>>> master
   return null;
 
 }
@@ -211,7 +261,11 @@ return $default(_that.id,_that.name,_that.age,_that.email,_that.description,_tha
 
 
 class _User implements User {
+<<<<<<< HEAD
    _User({required this.id, required this.name, required this.age, required this.email, required this.description, required final  List<String> professionsId}): _professionsId = professionsId;
+=======
+   _User({required this.id, required this.name, required this.age, required this.email, required this.description, this.profileImagePath, required final  List<String> professionsId}): _professionsId = professionsId;
+>>>>>>> master
   
 
 @override final  String id;
@@ -219,6 +273,10 @@ class _User implements User {
 @override final  int age;
 @override final  String email;
 @override final  String description;
+<<<<<<< HEAD
+=======
+@override final  String? profileImagePath;
+>>>>>>> master
  final  List<String> _professionsId;
 @override List<String> get professionsId {
   if (_professionsId is EqualUnmodifiableListView) return _professionsId;
@@ -237,16 +295,28 @@ _$UserCopyWith<_User> get copyWith => __$UserCopyWithImpl<_User>(this, _$identit
 
 @override
 bool operator ==(Object other) {
+<<<<<<< HEAD
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.age, age) || other.age == age)&&(identical(other.email, email) || other.email == email)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._professionsId, _professionsId));
+=======
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.age, age) || other.age == age)&&(identical(other.email, email) || other.email == email)&&(identical(other.description, description) || other.description == description)&&(identical(other.profileImagePath, profileImagePath) || other.profileImagePath == profileImagePath)&&const DeepCollectionEquality().equals(other._professionsId, _professionsId));
+>>>>>>> master
 }
 
 
 @override
+<<<<<<< HEAD
 int get hashCode => Object.hash(runtimeType,id,name,age,email,description,const DeepCollectionEquality().hash(_professionsId));
 
 @override
 String toString() {
   return 'User(id: $id, name: $name, age: $age, email: $email, description: $description, professionsId: $professionsId)';
+=======
+int get hashCode => Object.hash(runtimeType,id,name,age,email,description,profileImagePath,const DeepCollectionEquality().hash(_professionsId));
+
+@override
+String toString() {
+  return 'User(id: $id, name: $name, age: $age, email: $email, description: $description, profileImagePath: $profileImagePath, professionsId: $professionsId)';
+>>>>>>> master
 }
 
 
@@ -257,7 +327,11 @@ abstract mixin class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) _then) = __$UserCopyWithImpl;
 @override @useResult
 $Res call({
+<<<<<<< HEAD
  String id, String name, int age, String email, String description, List<String> professionsId
+=======
+ String id, String name, int age, String email, String description, String? profileImagePath, List<String> professionsId
+>>>>>>> master
 });
 
 
@@ -274,14 +348,23 @@ class __$UserCopyWithImpl<$Res>
 
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
+<<<<<<< HEAD
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? age = null,Object? email = null,Object? description = null,Object? professionsId = null,}) {
+=======
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? age = null,Object? email = null,Object? description = null,Object? profileImagePath = freezed,Object? professionsId = null,}) {
+>>>>>>> master
   return _then(_User(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,age: null == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
 as int,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+<<<<<<< HEAD
 as String,professionsId: null == professionsId ? _self._professionsId : professionsId // ignore: cast_nullable_to_non_nullable
+=======
+as String,profileImagePath: freezed == profileImagePath ? _self.profileImagePath : profileImagePath // ignore: cast_nullable_to_non_nullable
+as String?,professionsId: null == professionsId ? _self._professionsId : professionsId // ignore: cast_nullable_to_non_nullable
+>>>>>>> master
 as List<String>,
   ));
 }

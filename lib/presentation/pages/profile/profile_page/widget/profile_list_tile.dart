@@ -13,16 +13,14 @@ class ProfileListTile extends StatelessWidget {
         text: TextSpan(
           text: '$label: ',
           style: const TextStyle(
+            fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.grey,
           ),
           children: [
             TextSpan(
               text: value,
-              style: TextStyle(
-                fontWeight: FontWeight.normal,
-                color: Colors.grey[800],
-              ),
+              style: TextStyle(fontWeight: FontWeight.normal),
             ),
           ],
         ),

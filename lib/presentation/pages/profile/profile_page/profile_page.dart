@@ -2,15 +2,15 @@ import 'package:estado/presentation/widgets/skeleton_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../application/cubit/profile_cubit.dart';
+import '../../../../application/profile_cubit/profile_cubit.dart';
 import 'widget/profile_header.dart';
 import 'widget/profile_info.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage(this.userId, {super.key, required this.professionId});
-  final String userId;
-  final String professionId;
+
+  final String? userId;
+  final String? professionId;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -21,7 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     final cubit = context.read<ProfileCubit>();
-    cubit.loadUser(widget.userId);
+    cubit.loadUser(widget.userId!);
   }
 
   @override
@@ -32,12 +32,12 @@ class _ProfilePageState extends State<ProfilePage> {
           return const SkeletonItem();
         } else if (state is ProfileLoadedState) {
           return Scaffold(
-            backgroundColor: Colors.white,
             appBar: AppBar(
               shadowColor: Colors.transparent,
               title: ProfileHeader(),
             ),
-            body:SingleChildScrollView(
+            body: SingleChildScrollView(
+
               child: Column(
                 children: [
                   ProfileInfo(
