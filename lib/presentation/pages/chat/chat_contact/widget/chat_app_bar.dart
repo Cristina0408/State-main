@@ -47,6 +47,10 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           elevation: 3,
           actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {},
+              ),
             MenuButton(
               options: [
                 MenuOption(

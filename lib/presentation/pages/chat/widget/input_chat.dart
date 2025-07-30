@@ -18,6 +18,7 @@ class InputChat extends StatefulWidget {
 class _InputChatState extends State<InputChat> {
   final TextEditingController _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+  bool _isMicPressed = false;
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _InputChatState extends State<InputChat> {
 
     _textController.clear();
     widget.chatCubit.updateInput('');
-    setState(() {});  // Para actualizar el icono
+    setState(() {});
     _focusNode.requestFocus();
   }
 
@@ -56,14 +57,13 @@ class _InputChatState extends State<InputChat> {
         child: Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 495),
+            constraints: const BoxConstraints(maxWidth: 550),
             child: Container(
               height: 42,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: Colors.purple[700]!, width: 1),
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.grey,
@@ -75,13 +75,30 @@ class _InputChatState extends State<InputChat> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.add, color: Colors.grey),
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    onPressed: () {},
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: IconButton(
+                      icon: const Icon(Icons.emoji_emotions, color: Colors.grey),
+                      visualDensity: VisualDensity.compact,
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                      onPressed: () {},
+                    ),
+                  ),
                   Expanded(
                     child: TextField(
                       controller: _textController,
                       focusNode: _focusNode,
                       onChanged: (text) {
                         widget.chatCubit.updateInput(text);
-                        setState(() {});  // Para refrescar el icono cuando se escribe
+                        setState(() {});
                       },
                       onSubmitted: _handleSubmit,
                       style: const TextStyle(fontSize: 13),
@@ -99,18 +116,35 @@ class _InputChatState extends State<InputChat> {
                       ),
                     ),
                   ),
-                  IconTheme(
-                    data: const IconThemeData(color: Colors.purple, size: 25),
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      icon: Icon(isWriting ? Icons.send : Icons.mic),
-                      onPressed: isWriting
-                          ? () => _handleSubmit(currentInput)
-                          : () {
-                            },
-                    ),
-                  ),
+                  isWriting
+                      ? IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                          icon: const Icon(Icons.send, color: Colors.purple),
+                          onPressed: () => _handleSubmit(currentInput),
+                        )
+                      : GestureDetector(
+                          onTapDown: (_) {
+                            setState(() {
+                              _isMicPressed = true;
+                            });
+                          },
+                          onTapUp: (_) {
+                            setState(() {
+                              _isMicPressed = false;
+                            });
+                          },
+                          onTapCancel: () {
+                            setState(() {
+                              _isMicPressed = false;
+                            });
+                          },
+                          child: Icon(
+                            Icons.mic,
+                            color: _isMicPressed ? Colors.purple : Colors.grey,
+                            size: 25,
+                          ),
+                        ),
                 ],
               ),
             ),

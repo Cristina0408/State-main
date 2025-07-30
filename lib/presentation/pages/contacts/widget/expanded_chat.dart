@@ -12,7 +12,7 @@ class ChatSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[100],
+      
       child: selectedContactId == null
         ? Center(
           child: Column(

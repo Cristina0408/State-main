@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../domain/entities/contact.dart';
 import '../../features/theme_page/theme_page.dart';
 import '../pages/chat/chat_group/chat_group_page.dart';
-import '../pages/chat/chat_profile/chat_profile_page.dart';
+import '../pages/chat/chat_contact/contact_profile/chat_profile_page.dart';
 import '../pages/contacts/contacts_page.dart';
 import '../pages/group/create_group_page.dart';
 import '../pages/group/groups_page.dart';
