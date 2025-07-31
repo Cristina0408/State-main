@@ -57,7 +57,7 @@ class _InputChatState extends State<InputChat> {
         child: Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 550),
+            constraints: const BoxConstraints(maxWidth: 530),
             child: Container(
               height: 42,
               padding: const EdgeInsets.symmetric(horizontal: 8),
