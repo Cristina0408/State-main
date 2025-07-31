@@ -10,10 +10,7 @@ abstract class User with _$User {
     required int age,
     required String email,
     required String description,
-<<<<<<< HEAD
-=======
     String? profileImagePath,
->>>>>>> master
     required List<String> professionsId,
   }) = _User;
 }

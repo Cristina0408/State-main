@@ -7,6 +7,7 @@ import 'application/theme_cubit/theme_cubit.dart';
 
 import 'application/chat_cubit/chat_cubit.dart';
 import 'application/group_cubit/group_cubit.dart';
+import 'application/search_cubit/search_panel_cubit.dart';
 import 'presentation/routes/routes.dart';
 
 void main() => runApp(const MyApp());
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => ChatCubit()),
         BlocProvider<GroupCubit>(create: (_) => GroupCubit()),
+        BlocProvider(create: (_) => SearchPanelCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

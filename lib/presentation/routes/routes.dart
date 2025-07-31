@@ -1,18 +1,20 @@
+
+
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../domain/entities/contact.dart';
 import '../../features/theme_page/theme_page.dart';
+import '../pages/chat/chat_group/chat_group_page.dart';
+import '../pages/chat/chat_contact/contact_profile/chat_profile_page.dart';
+import '../pages/contacts/contacts_page.dart';
 import '../pages/group/create_group_page.dart';
 import '../pages/group/groups_page.dart';
-import '../pages/chat/chat_contact/chat_contact_page.dart';
-import '../pages/chat/chat_group/chat_group_page.dart';
-import '../pages/chat/chat_profile/chat_profile_page.dart';
-import '../pages/contacts/contacts_page.dart';
 import '../pages/profile/profile_edit_page/profile_edit_page.dart';
 import '../pages/profile/profile_page/profile_page.dart';
 import '../pages/splash/splash_screen.dart';
 import '../pages/states/states_page.dart';
 import '../widgets/bottom_navigation_bar.dart';
-
 
 GoRouter createRouter(BuildContext context) {
   return GoRouter(
@@ -25,7 +27,7 @@ GoRouter createRouter(BuildContext context) {
       ),
       ShellRoute(
         builder: (context, state, child) {
-          return NavigationBar(
+          return ButtonNavigationBar(
             currentLocation: state.uri.toString(),
             child: child,
           );
@@ -42,7 +44,7 @@ GoRouter createRouter(BuildContext context) {
             builder: (context, state) => const StatesPage(),
           ),
           GoRoute(
-            path: '/groups', 
+            path: '/groups',
             name: 'groups',
             builder: (context, state) => const GroupsPage(),
           ),

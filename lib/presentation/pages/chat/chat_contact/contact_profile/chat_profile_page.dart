@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../application/chat_cubit/chat_state.dart';
-import '../../../../domain/entities/contact.dart';
-import '../../../../application/chat_cubit/chat_cubit.dart';
+import '../../../../../application/chat_cubit/chat_state.dart';
+import '../../../../../domain/entities/contact.dart';
+import '../../../../../application/chat_cubit/chat_cubit.dart';
 import 'widget/button_contact_profile.dart';
 import 'widget/list_options_contact.dart';
 
