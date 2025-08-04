@@ -4,11 +4,13 @@ import '../../../../application/chat_cubit/chat_cubit.dart';
 class InputChat extends StatefulWidget {
   final ChatCubit chatCubit;
   final String contactEmail;
+  final bool isBlocked; // nuevo parámetro
 
   const InputChat({
     super.key,
     required this.chatCubit,
     required this.contactEmail,
+    required this.isBlocked,
   });
 
   @override
@@ -18,7 +20,6 @@ class InputChat extends StatefulWidget {
 class _InputChatState extends State<InputChat> {
   final TextEditingController _textController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
-  bool _isMicPressed = false;
 
   @override
   void initState() {
@@ -37,6 +38,13 @@ class _InputChatState extends State<InputChat> {
     final trimmed = text.trim();
     if (trimmed.isEmpty) return;
 
+    if (widget.isBlocked) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No puedes enviar mensajes en un chat bloqueado')),
+      );
+      return;
+    }
+
     FocusScope.of(context).unfocus();
     widget.chatCubit.addMessage(trimmed, widget.contactEmail);
 
@@ -48,6 +56,19 @@ class _InputChatState extends State<InputChat> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isBlocked) {
+      return Container(
+        padding: const EdgeInsets.all(16),
+        color: Colors.red[100],
+        child: const Center(
+          child: Text(
+            'Chat bloqueado',
+            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
+    }
+
     final currentInput = widget.chatCubit.state.currentInput;
     final isWriting = currentInput.trim().isNotEmpty;
 
@@ -106,45 +127,25 @@ class _InputChatState extends State<InputChat> {
                         hintText: 'Enviar mj:',
                         hintStyle: TextStyle(
                           fontSize: 16,
-                          color: Colors.grey,
-                          fontStyle: FontStyle.italic,
+                          color: Colors.black54,
                         ),
                         border: InputBorder.none,
-                        isDense: true,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                        isCollapsed: true,
+                        contentPadding: EdgeInsets.symmetric(vertical: 8),
                       ),
+                      maxLines: 1,
                     ),
                   ),
-                  isWriting
-                      ? IconButton(
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(),
-                          icon: const Icon(Icons.send, color: Colors.purple),
-                          onPressed: () => _handleSubmit(currentInput),
-                        )
-                      : GestureDetector(
-                          onTapDown: (_) {
-                            setState(() {
-                              _isMicPressed = true;
-                            });
-                          },
-                          onTapUp: (_) {
-                            setState(() {
-                              _isMicPressed = false;
-                            });
-                          },
-                          onTapCancel: () {
-                            setState(() {
-                              _isMicPressed = false;
-                            });
-                          },
-                          child: Icon(
-                            Icons.mic,
-                            color: _isMicPressed ? Colors.purple : Colors.grey,
-                            size: 25,
-                          ),
-                        ),
+                  if (isWriting)
+                    IconButton(
+                      icon: const Icon(Icons.send, color: Colors.blueAccent),
+                      onPressed: () => _handleSubmit(currentInput),
+                    )
+                  else
+                    IconButton(
+                      icon: const Icon(Icons.mic, color: Colors.grey),
+                      onPressed: () {},
+                    ),
                 ],
               ),
             ),

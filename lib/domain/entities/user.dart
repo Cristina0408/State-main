@@ -11,6 +11,5 @@ abstract class User with _$User {
     required String email,
     required String description,
     String? profileImagePath,
-    required List<String> professionsId,
   }) = _User;
 }

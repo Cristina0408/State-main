@@ -17,8 +17,6 @@ class PopMenuButton extends StatelessWidget {
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
         final cubit = BlocProvider.of<ChatCubit>(context);
-        final isFav = state.favorites.contains(contact.id);
-        final notificationsOn = state.notificationsEnabled[contact.id] ?? true;
 
         return PopupMenuButton<String>(
           tooltip: '',
@@ -26,7 +24,6 @@ class PopMenuButton extends StatelessWidget {
           icon: const Icon(Icons.expand_more, size: 20),
           splashRadius: 20,
           enableFeedback: true,
-          color: Colors.black87,
           elevation: 4,
           onSelected: (value) {
             if (value == 'favorite') {
@@ -35,36 +32,41 @@ class PopMenuButton extends StatelessWidget {
               cubit.toggleNotification(contact.id);
             }
           },
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              value: 'favorite',
-              child: Row(
-                children: [
-                  Icon(
-                    isFav ? Icons.favorite : Icons.favorite_border,
-                    color: Colors.redAccent,
-                    size: 18,
-                  ),
-                  const SizedBox(width: 8),
-                  const Text('Favorito', style: TextStyle(color: Colors.white)),
-                ],
+          itemBuilder: (context) {
+            final isFav = state.favorites.contains(contact.id);
+            final notificationsOn = state.notificationsEnabled[contact.id] ?? true;
+
+            return [
+              PopupMenuItem(
+                value: 'favorite',
+                child: Row(
+                  children: [
+                    Icon(
+                      isFav ? Icons.favorite : Icons.favorite_border,
+                      color: isFav ? Colors.red : Colors.grey,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(isFav ? 'Favorito' : 'Agregar a favoritos'),
+                  ],
+                ),
               ),
-            ),
-            PopupMenuItem(
-              value: 'mute',
-              child: Row(
-                children: [
-                  Icon(
-                    notificationsOn ? Icons.volume_off : Icons.volume_off_outlined,
-                    color: Colors.white,
-                    size: 18,
-                  ),
-                  const SizedBox(width: 8),
-                  const Text('Silenciar', style: TextStyle(color: Colors.white)),
-                ],
+              PopupMenuItem(
+                value: 'mute',
+                child: Row(
+                  children: [
+                    Icon(
+                      notificationsOn ? Icons.volume_off : Icons.volume_up,
+                      color: notificationsOn ? Colors.grey : Colors.green,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(notificationsOn ? 'Silenciado' : 'Activar sonido'),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ];
+          },
         );
       },
     );

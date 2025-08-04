@@ -1,12 +1,14 @@
 
 
+import 'package:estado/presentation/pages/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../domain/entities/contact.dart';
 import '../../features/theme_page/theme_page.dart';
+import '../pages/chat/chat_contact/widget/search_panel.dart';
 import '../pages/chat/chat_group/chat_group_page.dart';
-import '../pages/chat/chat_contact/contact_profile/chat_profile_page.dart';
+import '../pages/chat/chat_contact/chat_profile/chat_profile_page.dart';
 import '../pages/contacts/contacts_page.dart';
 import '../pages/group/create_group_page.dart';
 import '../pages/group/groups_page.dart';
@@ -53,12 +55,17 @@ GoRouter createRouter(BuildContext context) {
             name: 'theme',
             builder: (context, state) => const ThemePage(),
           ),
+          GoRoute(
+            path: '/settings',
+            name: 'settings',
+            builder: (context, state) => const SettingsPage(),
+          ),
+          GoRoute(
+            path: '/profile',
+            name: 'profile',
+            builder: (context, state) => const ProfilePage("1", professionId: 'p1'),
+          ),
         ],
-      ),
-      GoRoute(
-        path: '/profile',
-        name: 'profile',
-        builder: (context, state) => const ProfilePage("1", professionId: 'p1'),
       ),
       GoRoute(
         path: '/profile/edit',
@@ -84,6 +91,10 @@ GoRouter createRouter(BuildContext context) {
           final contact = state.extra as Contact;
           return ContactProfilePage(contact: contact);
         },
+      ),
+      GoRoute(
+        path: '/search',
+        builder: (context, state) => const SearchPanel(),
       ),
     ],
   );

@@ -1,4 +1,3 @@
-// lib/presentation/widgets/chat_app_bar.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +21,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
         final displayName = state.nicknames[contact.id] ?? contact.name;
+        final isBlocked = state.blockedChats.contains(contact.id);
 
         return AppBar(
           title: Row(
@@ -65,9 +65,15 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 MenuOption(
                   value: 'blockade',
-                  label: 'Bloquear',
-                  onTap: () {},
-                  icon: Icons.person_off_outlined,
+                  label: isBlocked ? 'Desbloquear' : 'Bloquear',
+                  onTap: () {
+                    if (isBlocked) {
+                      context.read<ChatCubit>().unblockChat(contact.id);
+                    } else {
+                      context.read<ChatCubit>().blockChat(contact.id);
+                    }
+                  },
+                  icon: isBlocked ? Icons.person_outline : Icons.person_off_outlined,
                 ),
                 MenuOption(
                   value: 'delete',

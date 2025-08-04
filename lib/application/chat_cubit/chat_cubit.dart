@@ -77,4 +77,19 @@ class ChatCubit extends Cubit<ChatState> {
   void selectContact(String contactId) {
     emit(state.copyWith(selectedContactId: contactId));
   }
+
+  void blockChat(String contactId) {
+    final updated = Set<String>.from(state.blockedChats)..add(contactId);
+    emit(state.copyWith(blockedChats: updated));
+  }
+
+  void unblockChat(String contactId) {
+    final updated = Set<String>.from(state.blockedChats)..remove(contactId);
+    emit(state.copyWith(blockedChats: updated));
+  }
+
+  bool isChatBlocked(String contactId) {
+    return state.blockedChats.contains(contactId);
+  }
+
 }

@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: SizedBox(
                 width: 200,
                 child: LinearProgressIndicator(
-                  minHeight: 15,
+                  minHeight: 6,
                   backgroundColor: Colors.grey,
                   color: Colors.green[600],
                 ),

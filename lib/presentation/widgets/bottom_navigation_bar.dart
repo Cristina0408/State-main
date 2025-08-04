@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class ButtonNavigationBar extends StatelessWidget {
+class ButtonNavigationBar extends StatefulWidget {
   final Widget child;
   final String currentLocation;
 
@@ -11,17 +11,28 @@ class ButtonNavigationBar extends StatelessWidget {
     required this.currentLocation,
   });
 
+  @override
+  State<ButtonNavigationBar> createState() => _ButtonNavigationBarState();
+}
+
+class _ButtonNavigationBarState extends State<ButtonNavigationBar> {
+  bool _showDotOnStates = true;
+
   int _locationToIndex(String location) {
     if (location.startsWith('/contacts')) return 0;
     if (location.startsWith('/states')) return 1;
     if (location.startsWith('/groups')) return 2;
     if (location.startsWith('/theme')) return 3;
-    if (location.startsWith('/settings')) return 4;
-    if (location.startsWith('/profile')) return 5;
     return 0;
   }
 
   void _onItemTapped(BuildContext context, int index) {
+    if (index == 1) {
+      setState(() {
+        _showDotOnStates = false;
+      });
+    }
+
     switch (index) {
       case 0:
         context.go('/contacts');
@@ -46,12 +57,14 @@ class ButtonNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentIndex = _locationToIndex(currentLocation);
+    final currentIndex = _locationToIndex(widget.currentLocation);
+    final isSettings = widget.currentLocation.startsWith('/settings');
+    final isProfile = widget.currentLocation.startsWith('/profile');
 
     return Scaffold(
       body: Row(
         children: [
-            NavigationRailTheme(
+          NavigationRailTheme(
             data: NavigationRailThemeData(
               minWidth: 56,
               indicatorColor: Colors.transparent,
@@ -63,20 +76,37 @@ class ButtonNavigationBar extends StatelessWidget {
               selectedIndex: currentIndex > 3 ? null : currentIndex,
               onDestinationSelected: (index) => _onItemTapped(context, index),
               labelType: NavigationRailLabelType.none,
-              destinations: const [
-                NavigationRailDestination(
+              destinations: [
+                const NavigationRailDestination(
                   icon: Icon(Icons.message_outlined),
                   label: Text('Contactos'),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.donut_large_rounded),
-                  label: Text('Estados'),
+                  icon: Stack(
+                    children: [
+                      const Icon(Icons.donut_large_rounded),
+                      if (_showDotOnStates)
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Container(
+                            width: 10,
+                            height: 10,
+                            decoration: const BoxDecoration(
+                              color: Colors.purple,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                  label: const Text('Estados'),
                 ),
-                NavigationRailDestination(
+                const NavigationRailDestination(
                   icon: Icon(Icons.people_alt_outlined),
                   label: Text('Grupos'),
                 ),
-                NavigationRailDestination(
+                const NavigationRailDestination(
                   icon: Icon(Icons.color_lens),
                   label: Text('Tema'),
                 ),
@@ -88,7 +118,7 @@ class ButtonNavigationBar extends StatelessWidget {
                     IconButton(
                       icon: Icon(
                         Icons.settings,
-                        color: currentIndex == 4 ? Colors.purple[600] : Colors.grey,
+                        color: isSettings ? Colors.purple[600] : Colors.grey,
                       ),
                       tooltip: 'Configuración',
                       onPressed: () => _onItemTapped(context, 4),
@@ -96,7 +126,7 @@ class ButtonNavigationBar extends StatelessWidget {
                     IconButton(
                       icon: Icon(
                         Icons.person,
-                        color: currentIndex == 5 ? Colors.purple[600] : Colors.grey,
+                        color: isProfile ? Colors.purple[600] : Colors.grey,
                       ),
                       tooltip: 'Perfil',
                       onPressed: () => _onItemTapped(context, 5),
@@ -108,9 +138,10 @@ class ButtonNavigationBar extends StatelessWidget {
             ),
           ),
           const VerticalDivider(thickness: 1, width: 1),
-          Expanded(child: child),
+          Expanded(child: widget.child),
         ],
       ),
     );
   }
 }
+

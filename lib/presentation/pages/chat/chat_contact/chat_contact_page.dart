@@ -21,8 +21,6 @@ class ChatContactPage extends StatefulWidget {
 class _ChatContactPageState extends State<ChatContactPage>
     with TickerProviderStateMixin {
   late final Contact contact;
-  final FocusNode _focusNode = FocusNode();
-  final TextEditingController _textController = TextEditingController();
 
   @override
   void initState() {
@@ -31,13 +29,6 @@ class _ChatContactPageState extends State<ChatContactPage>
       (c) => c.id == widget.contactId,
       orElse: () => Contact(id: '0', name: 'Desconocido', email: '', phone: ''),
     );
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    _textController.dispose();
-    super.dispose();
   }
 
   @override
@@ -67,8 +58,9 @@ class _ChatContactPageState extends State<ChatContactPage>
           SizedBox(
             height: 50,
             child: InputChat(
-              chatCubit: context.read<ChatCubit>(),
+              chatCubit: chatCubit,
               contactEmail: contact.email,
+              isBlocked: chatCubit.isChatBlocked(contact.id),
             ),
           ),
         ],

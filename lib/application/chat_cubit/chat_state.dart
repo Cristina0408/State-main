@@ -11,6 +11,7 @@ abstract class ChatState with _$ChatState {
     required Map<String, String> nicknames,
     required Set<String> favorites,
     required Set<String> loadingNicknames,
+    required Set<String> blockedChats,
     required Map<String, bool> notificationsEnabled,
     String? selectedContactId,
   }) = _ChatState;
@@ -21,6 +22,7 @@ abstract class ChatState with _$ChatState {
     nicknames: {},
     favorites: {},
     loadingNicknames: {},
+    blockedChats: {},
     notificationsEnabled: {},
     selectedContactId: null,
   );

@@ -1,3 +1,4 @@
+import 'package:estado/presentation/widgets/menu_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,24 +15,19 @@ class StatesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Novedades'),
         actions: [
-          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert),
-            onSelected: (value) {
-              if (value == 'settings') {
-
-              } else if (value == 'privacy') {
-
-              }
-            },
-            itemBuilder: (BuildContext context) => const [
-              PopupMenuItem<String>(value: 'settings', child: Text('Ajustes')),
-              PopupMenuItem<String>(
-                value: 'privacy',
-                child: Text('Privacidad de estados'),
-              ),
-            ],
-          ),
+          IconButton(
+            icon: const Icon(Icons.add_circle_outline), 
+            onPressed: () {}),
+          MenuButton(
+            options: [ 
+              MenuOption(
+                  value: 'private state',
+                  label: 'Estado privado',
+                  onTap: () {},
+                  icon: Icons.lock_outline,
+                ),
+              ]
+            ),
         ],
       ),
       body: Stack(

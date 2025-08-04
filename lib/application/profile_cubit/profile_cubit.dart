@@ -1,9 +1,8 @@
-import 'package:estado/core/utils/fake_user.dart';
 import 'package:estado/domain/entities/user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/entities/profesion.dart';
+import '../../features/utils/fake_user.dart';
 
 part 'profile_state.dart';
 part 'profile_cubit.freezed.dart';
@@ -13,8 +12,16 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void loadUser(String userId) {
     emit(const ProfileState.loading());
-    final user = fakeUser.firstWhere((element) => element.id == userId);
-
+    final user = fakeUser.firstWhere(
+    (element) => element.id == userId,
+    orElse: () => User(
+      id: '0',
+      name: 'Invitado',
+      email: '',
+      age: 0,
+      description: 'Perfil no encontrado',
+    ),
+  );
     Future.delayed(const Duration(seconds: 2), () {
       emit(ProfileState.loaded(user));
     });
@@ -51,21 +58,5 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(ProfileState.error());
       emit(currentUser);
     }
-  }
-
-  void updateProfessions(List<Profession> newProfessions) {
-    final currentState = state;
-    if (currentState is! ProfileLoadedState) return;
-
-    emit(const ProfileState.loading());
-
-    final professionIds = newProfessions.map((p) => p.id).toList();
-
-    final updatedUser = currentState.user.copyWith(
-      professionsId: professionIds,
-    );
-
-    emit(ProfileState.successUpdate());
-    emit(ProfileState.loaded(updatedUser));
   }
 }

@@ -16,7 +16,12 @@ class SearchPanel extends StatelessWidget {
             'Buscar mensajes',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          SearchBar(hintText: 'Buscar...',),
+          Row(
+            children: [
+              Icon( Icons.calendar_month_sharp, color: Colors.grey,),
+              Expanded(child: SearchBar(hintText: 'Buscar...',)),
+            ],
+          ),
         ],
       ),
     );
