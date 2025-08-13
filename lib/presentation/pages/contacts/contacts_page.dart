@@ -5,6 +5,8 @@ import '../../../application/chat_cubit/chat_cubit.dart';
 import '../../../application/chat_cubit/chat_state.dart';
 import '../../../features/utils/fake_contacts.dart';
 import '../../widgets/search_bar.dart';
+import '../../../application/search_cubit/search_panel_cubit.dart';
+import '../chat/chat_contact/widget/search_panel.dart';
 import 'widget/contact_appbar.dart';
 import 'widget/expanded_chat.dart';
 import 'widget/expanded_contact.dart';
@@ -56,7 +58,7 @@ class _ContactsPageState extends State<ContactsPage> {
                     child: Column(
                       children: [
                         const ContactsAppBar(),
-                        const SearchBar(),
+                        const SearchBar(hintText: 'Buscar un chat...',),
                         ThreeButtons(
                           onFirstPressed: () {},
                           onSecondPressed: () {},
@@ -76,8 +78,18 @@ class _ContactsPageState extends State<ContactsPage> {
                   const VerticalDivider(width: 1, thickness: 1),
                   Expanded(
                     flex: 3,
-                    child: ChatSection(selectedContactId: state.selectedContactId),
+                    child: ExpandedChat(
+                      selectedContactId: state.selectedContactId,
+                    ),
                   ),
+                        const VerticalDivider(width: 1, thickness: 1),
+                  BlocBuilder<SearchPanelCubit, bool>(
+                  builder: (context, showSearch) {
+                    return showSearch
+                        ? const Expanded(flex: 2, child: SearchPanel())
+                        : const SizedBox.shrink();
+                  },
+                ),
                 ],
               );
             },

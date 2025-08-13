@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../application/chat_cubit/chat_cubit.dart';
-import '../../../../../application/chat_cubit/chat_state.dart';
+import '../../../../../../application/chat_cubit/chat_cubit.dart';
+import '../../../../../../application/chat_cubit/chat_state.dart';
 
 class ListOptionsProfile extends StatelessWidget {
   final String contactId;

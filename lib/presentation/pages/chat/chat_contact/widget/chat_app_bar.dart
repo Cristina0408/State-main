@@ -1,3 +1,4 @@
+// lib/presentation/widgets/chat_app_bar.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,7 @@ import '../../../../../application/chat_cubit/chat_cubit.dart';
 import '../../../../../application/chat_cubit/chat_state.dart';
 import '../../../../../domain/entities/contact.dart';
 import '../../../../widgets/menu_button.dart';
+import '../../../../../application/search_cubit/search_panel_cubit.dart';
 
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ChatAppBar({super.key, required this.contact});
@@ -47,18 +49,24 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           elevation: 3,
           actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                context.read<SearchPanelCubit>().toggle();
+              },
+            ),
             MenuButton(
               options: [
                 MenuOption(
-                  value: 'close chat', 
+                  value: 'close chat',
                   label: 'Cerrar chat',
-                  onTap: () {
-                  },
-                  icon: Icons.remove_circle_outline_outlined),
+                  onTap: () {},
+                  icon: Icons.remove_circle_outline_outlined,
+                ),
                 MenuOption(
                   value: 'blockade',
                   label: 'Bloquear',
-                  onTap: () {}, 
+                  onTap: () {},
                   icon: Icons.person_off_outlined,
                 ),
                 MenuOption(
@@ -66,7 +74,9 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                   label: 'Eliminar chat',
                   onTap: () {
                     context.read<ChatCubit>().clearMessages();
-                  }, icon: Icons.delete),
+                  },
+                  icon: Icons.delete,
+                ),
               ],
             ),
           ],

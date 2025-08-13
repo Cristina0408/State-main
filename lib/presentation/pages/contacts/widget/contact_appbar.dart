@@ -21,7 +21,7 @@ class ContactsAppBar extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.chat, color: Colors.white),
+            icon: const Icon(Icons.camera_alt_outlined, color: Colors.white),
             onPressed: () {
               
             },
